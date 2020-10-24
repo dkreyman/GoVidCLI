@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"os/exec"
 
 	"github.com/BurntSushi/toml"
 )
@@ -34,6 +35,11 @@ func main() {
 		fmt.Println("Please Fill Out The Config.toml")
 	}
 	readVidInfo()
+	// if runtime.GOOS == "windows" {
+	// 	fmt.Println("Can't Execute this on a windows machine")
+	// } else {
+	// 	execute()
+	// }
 	fmt.Println(config.Apikey)
 	fmt.Println(config.Usbdrive)
 }
@@ -72,6 +78,7 @@ func readVidInfo() {
 	var vidinfo Vidinfos
 	json.Unmarshal([]byte(byteValue), &vidinfo)
 	for i := 0; i < len(vidinfo.Vidinfos); i++ {
+		execute(vidinfo.Vidinfos[i].Source)
 		fmt.Println("Source: " + vidinfo.Vidinfos[i].Source)
 		fmt.Println("Start: " + vidinfo.Vidinfos[i].Start)
 		fmt.Println("End: " + vidinfo.Vidinfos[i].End)
@@ -79,10 +86,15 @@ func readVidInfo() {
 	}
 }
 
-// vi := vidInfo{}
-// 	if _, err := toml.Decode(allVids, &vi); err != nil {
-// 		log.Fatal(err)
-// 	}
+func execute(s string) {
+	out, err := exec.Command("rm", s).Output()
+	if err != nil {
+		fmt.Printf("%s", err)
+	}
+	fmt.Println("Command Successfully Executed")
+	output := string(out[:])
+	fmt.Println(output)
+}
 
 // 	fmt.Println(vi.videoName)
 
