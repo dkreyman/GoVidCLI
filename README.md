@@ -37,7 +37,7 @@ Once the videos are uploaded to youtube you can edit the title and add details s
 
 If it ever says exit status 1 or any other exit status besides zero then that command didn't work. There may be a bug.
 
- Also you might exceeded google apis quota which is 50 free upload video requests per day. You can resolve this by creating a new oauth client ID or waiting till the next day to make another request. 
+ Also you might exceed google apis free quota which is 50 free upload video requests per day. You can resolve this by creating a new oauth client ID or waiting till the next day to make another request. 
  
  Also keep an eye out for security alert emails from google asking you to grant access to your project. 
  
