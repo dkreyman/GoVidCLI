@@ -6,7 +6,7 @@ Process:
 
 This CLI is intended to be used with a usb hardrive that contain your .mov video files.
 
-Create a new project and oAuth client ID from googles api developer console.
+Create a new project and oAuth client ID from googles api developer console for a Web App.
 Set http://localhost:8080 as your redirect URI
 Then make sure to populate your client_secrets.json file with a client id and client secrets.
 client_secrets.json is in the youtube folder. (the name of the file is important)
