@@ -12,10 +12,10 @@ import (
 
 //config.toml has a predictable amount of variables
 type tomlConfig struct {
-	Usbdrive        string
-	Outfolder       string
-	Clipsfolder     string
-	Handbreakconfig string
+	Usbdrive        string //usb drive name
+	Outfolder       string //Folder where encoded clips get stored
+	Clipsfolder     string //Folder where trimmed .mov clips temporary live
+	Handbreakconfig string //Exported handbrake .json presets
 }
 
 //Collection of Vidinfo {}. This is because we don't know how many there will be.
@@ -25,12 +25,13 @@ type Vidinfos struct {
 
 //Vidinfo is the source, start, end, name block
 type Vidinfo struct {
-	Source string `json:"source"`
-	Start  string `json:"start"`
-	End    string `json:"end"`
-	Name   string `json:"name"`
+	Source string `json:"source"` //original .mov file
+	Start  string `json:"start"`  //Time to start the video at
+	End    string `json:"end"`    //Where to trim the video to
+	Name   string `json:"name"`   //Name of your youtube video and .mp4 video
 }
 
+//Global Variable
 var usbPath = "/Volumes/" + ReadConfig().Usbdrive + "/"
 
 //checks if drive is plugged in

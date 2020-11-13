@@ -20,6 +20,7 @@ var pathMP4 string
 var pathClipped string
 var pathSrc string
 
+//Gives us access to important path names
 func NewSrcPaths(i int) {
 	ReadVidInfo()
 	//path of source refrenced in vidInfo.json
@@ -33,6 +34,7 @@ func NewSrcPaths(i int) {
 }
 
 //ffmpeg is used to cut the video
+//Not percise cutting but quite fast.
 func Clip(i int) {
 	ReadVidInfo()
 	NewSrcPaths(i) //which defines pathClipped as "/Volumes/Usb_drive_name/Clipped/name.MOV"
