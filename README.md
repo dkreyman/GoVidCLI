@@ -1,5 +1,7 @@
 # GoVidCLI
 Automated video trimming, encoding, and Youtube uploading
+
+Process:
 .mov -> .mov cut into shorter and diffrently named clips -> shorter clips encoded into .mp4 -> oauth -> uploaded to youtube
 
 This CLI is intended to be used with a usb hardrive that contain your .mov video files.
