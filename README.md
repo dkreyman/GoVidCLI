@@ -16,7 +16,7 @@ Then fill out your vidInfo.json file:
 	End   //Where to trim the video to
 	Name //Name of your youtube video and .mp4 video
 
-You can make this folder as long as you want for as many videos as you want. Just seperate the Vidinfo {} with commas and make sure you have enough storage space.
+You can make this folder as long as you want for as many videos as you want. Just seperate the Vidinfo {} with commas and make sure you have enough storage space and are within your googleapis quota.
 
 Then fill out your config.toml file:
 
@@ -33,4 +33,4 @@ On your harddrive you need to create a folder called Clipped and a folder called
 
 Once the videos are uploaded to youtube you can edit the title and add details such as a description. However youtube wont allow you to change the videos to public unless you're clone gets approved because the scope of the youtube API that we're using is beyond just accessing public information.
 
-If it ever says exit status 1 or any other exit status besides zero then that command didn't work.
+If it ever says exit status 1 or any other exit status besides zero then that command didn't work. There may be a bug or you've exceded google apis quota.
