@@ -192,7 +192,7 @@ func tokenCacheFile() (string, error) {
 	tokenCacheDir := filepath.Join(usr.HomeDir, ".credentials")
 	os.MkdirAll(tokenCacheDir, 0700)
 	return filepath.Join(tokenCacheDir,
-		url.QueryEscape("youtube-goV3.json")), err
+		url.QueryEscape("youtube-goV4.json")), err
 }
 
 // tokenFromFile retrieves a Token from a given file path.

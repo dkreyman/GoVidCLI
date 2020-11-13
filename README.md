@@ -35,4 +35,10 @@ On your harddrive you need to create a folder called Clipped and a folder called
 
 Once the videos are uploaded to youtube you can edit the title and add details such as a description. However youtube wont allow you to change the videos to public because the scope of the youtube API that we're using is beyond just accessing public information. You need to get your app approved through youtube APIs compliance audit.
 
-If it ever says exit status 1 or any other exit status besides zero then that command didn't work. There may be a bug or you've exceded google apis quota which is 50 free upload video requests per day.  Also keep an eye out for security alert emails from google asking you to grant access to your project.
+If it ever says exit status 1 or any other exit status besides zero then that command didn't work. There may be a bug.
+
+ Also you might exceeded google apis quota which is 50 free upload video requests per day. You can resolve this by creating a new oauth client ID or waiting till the next day to make another request. 
+ 
+ Also keep an eye out for security alert emails from google asking you to grant access to your project. 
+ 
+ For an oauth2: cannot fetch token: 401 Unauthorized error I change the youtube/oauth2.go 'youtube-go.json' file name on line 195. This error can happen if you change your client ID.

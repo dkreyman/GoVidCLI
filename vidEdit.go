@@ -43,7 +43,7 @@ func Clip(i int) {
 	if err != nil {
 		fmt.Printf("%s", err)
 	}
-	fmt.Printf("Video: %s, Number: %d successfully clipped ", vidinfo.Vidinfos[i].Name, i+1)
+	fmt.Println("Successfully Clipped ")
 	output := string(out[:])
 	fmt.Println(output)
 }
@@ -56,7 +56,7 @@ func Encode(i int) {
 	if err != nil {
 		fmt.Printf("%s", err)
 	}
-	fmt.Printf("%s Successfully Encoded ", pathClipped)
+	fmt.Println("Successfully Encoded ")
 	output := string(out[:])
 	fmt.Println(output)
 }
