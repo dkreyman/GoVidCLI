@@ -23,6 +23,8 @@ func main() {
 		//Some string concatenation for the following command
 		file := "--filename=" + pathMP4
 		name := "--title=" + vidinfo.Vidinfos[i].Name
+		println(name)
+		println(file)
 		//Executes cmd command that uploads video to youtube
 		//Instead of implementing our own oauth and youtube upload feature we call on the script in the youtube folder.
 		out, err := exec.Command("go", "run", "youtube/oauth2.go", "youtube/upload_video.go", "youtube/errors.go", file, name).Output()
