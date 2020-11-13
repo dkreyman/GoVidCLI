@@ -13,9 +13,9 @@ import (
 //config.toml has a predictable amount of variables
 type tomlConfig struct {
 	Usbdrive        string
-	Outdirc         string
+	Outfolder       string
+	Clipsfolder     string
 	Handbreakconfig string
-	Apikey          string
 }
 
 //Collection of Vidinfo {}. This is because we don't know how many there will be.

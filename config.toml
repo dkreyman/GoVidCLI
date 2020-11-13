@@ -1,4 +1,4 @@
-Usbdrive = "USB Disk"
-Outdirc = "Documents"
-Handbreakconfig = "nameoffile"
-Apikey = "dshfkdshkfhsk"
+Usbdrive = "NINJABLD"
+Clipsfolder = "Clipped/"
+Outfolder = "MP4/"
+Handbreakconfig = "Youtube_Presets.json"

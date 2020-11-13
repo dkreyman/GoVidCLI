@@ -4,10 +4,9 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
-	"strings"
 )
 
-//used to check if a .mp4 file exists so we don't encode the same .mov twice.
+//used to check if a file exists so we don't encode or clip the same video twice.
 func FileExists(filename string) bool {
 	info, err := os.Stat(filename)
 	if os.IsNotExist(err) {
@@ -19,43 +18,55 @@ func FileExists(filename string) bool {
 //Global
 var pathMP4 string
 var pathClipped string
+var pathSrc string
 
 func NewSrcPaths(i int) {
 	ReadVidInfo()
-	//changes name from .mov to .mp4
-	source := vidinfo.Vidinfos[i].Source
-	srcMP4 := strings.Replace(source, ".mov", ".mp4", -1)
-	//The encoded files path
-	pathMP4 = usbPath + "MP4/" + srcMP4
-	//The final clipped videos path
-	pathClipped = usbPath + "Clipped/" + vidinfo.Vidinfos[i].Name + ".mp4"
-}
-
-//ffmpeg is used to encode the video
-func Encode(i int) {
-	ReadVidInfo()  //which has vidinfo
-	NewSrcPaths(i) //which defines pathMP4 as "/Volumes/Usb_drive_name/MP4/source.mp4"
-	//encodes video from a .mov to .mp4 placing it into the MP4 folder
-	out, err := exec.Command("ffmpeg", "-i", usbPath+vidinfo.Vidinfos[i].Source, "-q:v", "0", pathMP4).Output()
-	if err != nil {
-		fmt.Printf("%s", err)
-	}
-	fmt.Printf("%s Successfully Encoded", usbPath+vidinfo.Vidinfos[i].Source)
-	output := string(out[:])
-	fmt.Println(output)
+	//path of source refrenced in vidInfo.json
+	pathSrc = usbPath + vidinfo.Vidinfos[i].Source
+	//The clipped videos path. File changed from 'source' name to the (title) 'name'.
+	//ReadConfig() gives us access to variable from the config.toml file.
+	pathClipped = usbPath + ReadConfig().Clipsfolder + vidinfo.Vidinfos[i].Name + ".mov"
+	//The encoded files path. MP4/Name.mp4. Changed from .MOV to .mp4 and moved into MP4 folder.
+	pathMP4 = usbPath + ReadConfig().Outfolder + vidinfo.Vidinfos[i].Name + ".mp4"
 
 }
 
 //ffmpeg is used to cut the video
 func Clip(i int) {
 	ReadVidInfo()
-	NewSrcPaths(i) //which defines pathClipped as "/Volumes/Usb_drive_name/Clipped/vidname.mp4"
-	//Clips encoded mp4 from start to end time. Placing the clip in the Clipped folder as its "name.mp4"
-	out, err := exec.Command("ffmpeg", "-ss", vidinfo.Vidinfos[i].Start, "-i", pathMP4, "-to", vidinfo.Vidinfos[i].End, "-c", "copy", "-copyts", pathClipped).Output()
+	NewSrcPaths(i) //which defines pathClipped as "/Volumes/Usb_drive_name/Clipped/name.MOV"
+	//Clips source.MOV from start to end time. Placing the clip in the Clipped folder as its "name.MOV"
+	out, err := exec.Command("ffmpeg", "-i", pathSrc, "-ss", vidinfo.Vidinfos[i].Start, "-to", vidinfo.Vidinfos[i].End, "-c", "copy", pathClipped).Output()
 	if err != nil {
 		fmt.Printf("%s", err)
 	}
-	fmt.Println("Video successfully clipped")
+	fmt.Printf("Video: %s, Number: %d successfully clipped ", vidinfo.Vidinfos[i].Name, i+1)
+	output := string(out[:])
+	fmt.Println(output)
+}
+
+//ffmpeg is used to encode the video
+func Encode(i int) {
+	NewSrcPaths(i) //which defines pathMP4 as "/Volumes/Usb_drive_name/MP4/name.mp4"
+	//encodes clip from a .MOV to .mp4 placing it into the MP4 folder
+	out, err := exec.Command("HandBrakeCLI", "--preset-import-file", ReadConfig().Handbreakconfig, "--input", pathClipped, "--output", pathMP4).Output()
+	if err != nil {
+		fmt.Printf("%s", err)
+	}
+	fmt.Printf("%s Successfully Encoded ", pathClipped)
+	output := string(out[:])
+	fmt.Println(output)
+}
+
+//Deletes temporary .mov clip from Clipsfolder (/Clipped)
+func RmvClip(i int) {
+	NewSrcPaths(i)
+	out, err := exec.Command("rm", pathClipped).Output()
+	if err != nil {
+		fmt.Printf("%s", err)
+	}
+	fmt.Printf("Temporary .mov clip: %s deleted ", pathClipped)
 	output := string(out[:])
 	fmt.Println(output)
 }

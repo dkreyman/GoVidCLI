@@ -1,16 +1,16 @@
 {
     "vidinfos": [
         {
-        "source":"example.mov",
-        "start":"00:00:05",
-        "end":"00:00:10",
-        "name":"2020-10-04 Прославление"
+        "source":"NINJABLD_S001_S001_T001.MOV",
+        "start":"00:01:00",
+        "end":"00:02:30",
+        "name":"Works"
         },
         {
-            "source":"example.mov",
-            "start":"00:00:10",
-            "end":"00:00:20",
-            "name":"2020-10-04 Проповедь"
+            "source":"NINJABLD_S001_S001_T001.MOV",
+            "start":"00:06:10",
+            "end":"00:07:40",
+            "name":"WorksAlso"
         }
     ]
 }

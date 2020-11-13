@@ -1,28 +1,37 @@
 package main
 
+import (
+	"fmt"
+	"os/exec"
+)
+
 func main() {
 	DriveCheck()
 	ReadConfig()
 	ReadVidInfo()
-	// getClient()
-	// startWebServer()
-	// openURL()
-	// exchangeToken()
-	// getTokenFromPrompt()
-	// getTokenFromWeb()
-	// tokenCacheFile()
-	// tokenFromFile()
-	// saveToken()
 
 	for i := 0; i < len(vidinfo.Vidinfos); i++ {
-		if FileExists(pathMP4) {
-			Clip(i)
-		} else {
-			Encode(i)
-			Clip(i)
-		}
 		NewSrcPaths(i)
-		UploadVid(pathClipped, vidinfo.Vidinfos[i].Name)
+		if FileExists(pathMP4) {
+			println("MP4 file with this name already exists")
+		} else {
+			Clip(i)
+			fmt.Printf("Encoding Video: %s, Number: %d ", vidinfo.Vidinfos[i].Name, i+1)
+			Encode(i)
+			RmvClip(i)
+		}
+		fmt.Printf("Uploading Video: %s, Number: %d ", vidinfo.Vidinfos[i].Name, i+1)
+		//Some string concatenation for the command
+		file := "--filename=" + pathMP4
+		name := "--title=" + vidinfo.Vidinfos[i].Name
+		//Executes cmd command that uploads video to youtube
+		out, err := exec.Command("go", "run", "youtube/oauth2.go", "youtube/upload_video.go", "youtube/errors.go", file, name).Output()
+		if err != nil {
+			fmt.Printf("%s", err)
+		}
+		fmt.Printf(" Youtube upload %s...", pathMP4)
+		output := string(out[:])
+		fmt.Println(output)
 	}
 
 }
