@@ -30,3 +30,7 @@ You're also going to need to download the handbrake CLI and ffmpeg cli.
 You also might need to run 'go get' on some other dependencies like "golang.org/x/oauth2/google"
 
 On your harddrive you need to create a folder called Clipped and a folder called MP4. You can also choose what to call these folders in your config.toml file.
+
+Once the videos are uploaded to youtube you can edit the title and add details such as a description. However youtube wont allow you to change the videos to public unless you're clone gets approved because the scope of the youtube API that we're using is beyond just accessing public information.
+
+If it ever says exit status 1 or any other exit status than zero then it didn't work.
