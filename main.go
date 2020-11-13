@@ -14,6 +14,7 @@ func main() {
 		if FileExists(pathMP4) {
 			println("MP4 file with this name already exists")
 		} else {
+			fmt.Printf("Clipping Video: %s, Number: %d... ", vidinfo.Vidinfos[i].Name, i+1)
 			Clip(i) // Clips source.mov into smaller videos
 			fmt.Printf("Encoding Video: %s, Number: %d... ", vidinfo.Vidinfos[i].Name, i+1)
 			Encode(i)  //Encodes from .mov to .mp4 using handbrake .json presets
@@ -27,7 +28,7 @@ func main() {
 		println(file)
 		//Executes cmd command that uploads video to youtube
 		//Instead of implementing our own oauth and youtube upload feature we call on the script in the youtube folder.
-		out, err := exec.Command("go", "run", "youtube/oauth2.go", "youtube/upload_video.go", "youtube/errors.go", file, name).Output()
+		out, err := exec.Command("go", "run", "youtube/oauth2.go", "youtube/upload_video.go", "youtube/errors.go", file, name).CombinedOutput()
 		if err != nil {
 			fmt.Printf("%s", err)
 		}
@@ -35,5 +36,5 @@ func main() {
 		output := string(out[:])
 		fmt.Println(output)
 	}
-
+	fmt.Println("Finished!")
 }
