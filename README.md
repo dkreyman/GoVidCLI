@@ -35,4 +35,4 @@ On your harddrive you need to create a folder called Clipped and a folder called
 
 Once the videos are uploaded to youtube you can edit the title and add details such as a description. However youtube wont allow you to change the videos to public unless you're clone gets approved because the scope of the youtube API that we're using is beyond just accessing public information.
 
-If it ever says exit status 1 or any other exit status besides zero then that command didn't work. There may be a bug or you've exceded google apis quota.
+If it ever says exit status 1 or any other exit status besides zero then that command didn't work. There may be a bug or you've exceded google apis quota. To solve the quota issue you can create a new client ID. Also keep an eye out for security alert emails from google asking you to grant access to your project.
